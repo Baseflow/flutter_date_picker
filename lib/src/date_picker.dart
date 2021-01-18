@@ -10,9 +10,9 @@ class DatePicker extends StatefulWidget {
     this.elementBorder,
     this.elementBorderRadius,
     this.elementMargin,
-    this.elementWidth,
+    this.elementWidth = 48,
     @required this.firstDate,
-    this.height,
+    this.height = 56,
     @required this.lastDate,
     this.locale = 'en_US',
     this.monthStyle,
@@ -107,7 +107,7 @@ class _DatePickerState extends State<DatePicker> {
       height: widget.height,
       width: widget.width,
       child: widget.showDateSelector
-          ? _wrapWithDateSelector(scrollView)
+          ? _decorateWithDateSelector(scrollView)
           : scrollView,
     );
   }
@@ -167,7 +167,7 @@ class _DatePickerState extends State<DatePicker> {
         duration: Duration(milliseconds: 350), curve: Curves.easeOut);
   }
 
-  Widget _wrapWithDateSelector(Widget child) {
+  Widget _decorateWithDateSelector(Widget child) {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
