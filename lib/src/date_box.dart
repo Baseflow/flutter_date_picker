@@ -7,32 +7,31 @@ class DateBox extends StatelessWidget {
     this.background,
     this.border,
     this.borderRadius,
-    @required this.date,
+    required this.date,
     this.dateStyle,
     this.key,
     this.locale,
     this.margin,
     this.monthStyle,
     this.onPressed,
-    this.showMonth,
+    required this.showMonth,
     this.weekDayStyle,
     this.width,
-  })  : assert(date != null),
-        super(key: key);
+  }) : super(key: key);
 
-  final Color background;
-  final Border border;
-  final BorderRadius borderRadius;
+  final Color? background;
+  final Border? border;
+  final BorderRadius? borderRadius;
   final DateTime date;
-  final TextStyle dateStyle;
-  final Key key;
-  final String locale;
-  final EdgeInsets margin;
-  final TextStyle monthStyle;
-  final ValueChanged<DateTime> onPressed;
+  final TextStyle? dateStyle;
+  final Key? key;
+  final String? locale;
+  final EdgeInsets? margin;
+  final TextStyle? monthStyle;
+  final ValueChanged<DateTime>? onPressed;
   final bool showMonth;
-  final TextStyle weekDayStyle;
-  final double width;
+  final TextStyle? weekDayStyle;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +60,11 @@ class DateBox extends StatelessWidget {
       ),
       date: date,
       margin: margin,
-      onPressed: () => onPressed(date),
+      onPressed: () {
+        if (onPressed != null) {
+          onPressed!(date);
+        }
+      },
       width: width,
     );
   }

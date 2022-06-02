@@ -6,23 +6,22 @@ class DatePickerElement extends StatelessWidget {
     this.border,
     this.borderRadius,
     this.child,
-    @required this.date,
+    required this.date,
     this.key,
     this.margin,
     this.onPressed,
     this.width,
-  })  : assert(date != null),
-        super(key: key);
+  }) : super(key: key);
 
-  final Color background;
-  final Border border;
-  final BorderRadius borderRadius;
-  final Widget child;
+  final Color? background;
+  final Border? border;
+  final BorderRadius? borderRadius;
+  final Widget? child;
   final DateTime date;
-  final Key key;
-  final EdgeInsets margin;
-  final Function onPressed;
-  final double width;
+  final Key? key;
+  final EdgeInsets? margin;
+  final void Function()? onPressed;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {

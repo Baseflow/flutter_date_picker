@@ -6,27 +6,25 @@ class DateSelector extends StatelessWidget {
     this.background,
     this.border,
     this.borderRadius,
-    @required this.date,
-    @required this.firstDate,
+    required this.date,
+    required this.firstDate,
     this.icon,
-    @required this.lastDate,
+    required this.lastDate,
     this.margin,
     this.onDateSelected,
     this.width,
-  })  : assert(date != null),
-        assert(firstDate != null),
-        assert(lastDate != null);
+  });
 
-  final Color background;
-  final Border border;
-  final BorderRadius borderRadius;
+  final Color? background;
+  final Border? border;
+  final BorderRadius? borderRadius;
   final DateTime date;
   final DateTime firstDate;
-  final Icon icon;
+  final Icon? icon;
   final DateTime lastDate;
-  final EdgeInsets margin;
-  final ValueChanged<DateTime> onDateSelected;
-  final double width;
+  final EdgeInsets? margin;
+  final ValueChanged<DateTime>? onDateSelected;
+  final double? width;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +46,7 @@ class DateSelector extends StatelessWidget {
         );
 
         if (onDateSelected != null && selectedDate != null) {
-          onDateSelected(selectedDate);
+          onDateSelected!(selectedDate);
         }
       },
       width: width,

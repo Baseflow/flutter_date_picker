@@ -3,28 +3,33 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: getTheme(context),
-      home: DatePickerExample(title: 'Date Picker Demo'),
+      home: const DatePickerExample(title: 'Date Picker Demo'),
     );
   }
 }
 
 class DatePickerExample extends StatefulWidget {
-  DatePickerExample({this.title});
+  const DatePickerExample({
+    super.key,
+    required this.title,
+  });
 
   final String title;
 
   @override
-  _DatePickerExampleState createState() => _DatePickerExampleState();
+  State<DatePickerExample> createState() => _DatePickerExampleState();
 }
 
 class _DatePickerExampleState extends State<DatePickerExample> {
@@ -33,10 +38,10 @@ class _DatePickerExampleState extends State<DatePickerExample> {
   @override
   Widget build(BuildContext context) {
     final baseDate = DateTime.now();
-    final defaultTextStyle = TextStyle(
+    const defaultTextStyle = TextStyle(
       fontSize: 12,
     );
-    final defaultSelectedTextStyle = TextStyle(
+    const defaultSelectedTextStyle = TextStyle(
       color: Colors.white,
       fontSize: 12,
     );
@@ -52,7 +57,7 @@ class _DatePickerExampleState extends State<DatePickerExample> {
           Padding(
             padding: const EdgeInsets.only(top: 8.0, bottom: 8.0),
             child: DatePicker(
-              dateStyle: TextStyle(
+              dateStyle: const TextStyle(
                 color: kDefaultTextColor,
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -69,13 +74,12 @@ class _DatePickerExampleState extends State<DatePickerExample> {
               monthStyle: defaultTextStyle,
               lastDate: DateTime(baseDate.year + 4, 1, 1),
               onDateSelected: (date) => setState(() => selectedDate = date),
-              selectedDateStyle: TextStyle(
+              selectedDateStyle: const TextStyle(
                 color: Colors.white,
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
               selectedElementBackground: Theme.of(context).primaryColor,
-              selectedElementBorder: null,
               selectedMonthStyle: defaultSelectedTextStyle,
               selectedWeekDayStyle: defaultSelectedTextStyle,
               showDateSelector: true,
@@ -89,10 +93,10 @@ class _DatePickerExampleState extends State<DatePickerExample> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text('Selected date:'),
+                const Text('Selected date:'),
                 Text(
                   DateFormat('dd-MM-yyyy').format(selectedDate),
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
@@ -134,13 +138,13 @@ ThemeData getTheme(BuildContext context) {
   final colorScheme = _getColorScheme();
 
   final textTheme = theme.textTheme.copyWith(
-    headline6: theme.textTheme.headline6.copyWith(
+    headline6: theme.textTheme.headline6!.copyWith(
       color: kDefaultTextColor,
     ),
-    bodyText2: theme.textTheme.bodyText2.copyWith(
+    bodyText2: theme.textTheme.bodyText2!.copyWith(
       color: kDefaultTextColor,
     ),
-    button: theme.textTheme.bodyText2.copyWith(
+    button: theme.textTheme.bodyText2!.copyWith(
       fontWeight: FontWeight.bold,
       fontSize: 16,
     ),
@@ -148,8 +152,6 @@ ThemeData getTheme(BuildContext context) {
 
   return ThemeData(
     primaryColor: kPrimary,
-    accentColor: kAccentColor,
-    colorScheme: colorScheme,
     fontFamily: 'SF Pro Text',
     scaffoldBackgroundColor: kBackgroundColor,
     textTheme: textTheme,
@@ -174,13 +176,14 @@ ThemeData getTheme(BuildContext context) {
     appBarTheme: AppBarTheme(
       color: Colors.white,
       elevation: 10,
-      textTheme: textTheme,
       iconTheme: const IconThemeData(
         color: kDefaultTextColor,
       ),
       actionsIconTheme: const IconThemeData(
         color: kDefaultTextColor,
       ),
+      toolbarTextStyle: textTheme.bodyText2,
+      titleTextStyle: textTheme.headline6,
     ),
     bottomAppBarTheme: const BottomAppBarTheme(
       color: Colors.white,
@@ -206,18 +209,17 @@ ThemeData getTheme(BuildContext context) {
       fillColor: kInputDecorationFillColor,
       filled: true,
     ),
+    colorScheme: colorScheme.copyWith(secondary: kAccentColor),
   );
 }
 
 ColorScheme _getColorScheme() {
   return ColorScheme(
     primary: kPrimary,
-    primaryVariant: kPrimaryDarker,
     secondary: kAccentColor,
-    secondaryVariant: kAccentColorDarker,
     surface: kSurfaceColor,
     background: kBackgroundColor,
-    error: Colors.redAccent[700],
+    error: Colors.redAccent[700]!,
     onPrimary: Colors.white,
     onSecondary: Colors.white,
     onSurface: kDefaultTextColor,

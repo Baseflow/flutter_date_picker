@@ -11,13 +11,13 @@ class DatePicker extends StatefulWidget {
     this.elementBorderRadius,
     this.elementMargin,
     this.elementWidth = 48,
-    @required this.firstDate,
+    required this.firstDate,
     this.height = 56,
-    @required this.lastDate,
+    required this.lastDate,
     this.locale = 'en_US',
     this.monthStyle,
     this.onDateSelected,
-    DateTime selectedDate,
+    DateTime? selectedDate,
     this.selectedDateStyle,
     this.selectedElementBackground,
     this.selectedElementBorder,
@@ -27,34 +27,32 @@ class DatePicker extends StatefulWidget {
     this.showMonth = false,
     this.weekDayStyle,
     this.width,
-  })  : assert(firstDate != null),
-        assert(lastDate != null),
-        selectedDate = (selectedDate != null)
+  }) : selectedDate = (selectedDate != null)
             ? DateTime(selectedDate.year, selectedDate.month, selectedDate.day)
             : _defaultDate();
 
-  final TextStyle dateStyle;
-  final Color elementBackground;
-  final Border elementBorder;
-  final BorderRadius elementBorderRadius;
-  final EdgeInsets elementMargin;
+  final TextStyle? dateStyle;
+  final Color? elementBackground;
+  final Border? elementBorder;
+  final BorderRadius? elementBorderRadius;
+  final EdgeInsets? elementMargin;
   final double elementWidth;
   final DateTime firstDate;
   final double height;
   final DateTime lastDate;
-  final String locale;
-  final TextStyle monthStyle;
-  final ValueChanged<DateTime> onDateSelected;
+  final String? locale;
+  final TextStyle? monthStyle;
+  final ValueChanged<DateTime>? onDateSelected;
   final DateTime selectedDate;
-  final TextStyle selectedDateStyle;
-  final TextStyle selectedMonthStyle;
-  final TextStyle selectedWeekDayStyle;
-  final Color selectedElementBackground;
-  final Border selectedElementBorder;
+  final TextStyle? selectedDateStyle;
+  final TextStyle? selectedMonthStyle;
+  final TextStyle? selectedWeekDayStyle;
+  final Color? selectedElementBackground;
+  final Border? selectedElementBorder;
   final bool showDateSelector;
   final bool showMonth;
-  final TextStyle weekDayStyle;
-  final double width;
+  final TextStyle? weekDayStyle;
+  final double? width;
 
   @override
   _DatePickerState createState() => _DatePickerState(selectedDate);
@@ -71,7 +69,7 @@ class _DatePickerState extends State<DatePicker> {
   final _scrollController = ScrollController();
 
   DateTime selectedDate;
-  List<DateTime> _dates;
+  late List<DateTime> _dates;
 
   @override
   void initState() {
@@ -142,8 +140,9 @@ class _DatePickerState extends State<DatePicker> {
 
         setState(() {});
 
-        if (widget.onDateSelected != null) {
-          widget.onDateSelected(date);
+        void Function(DateTime)? onDateSelected = widget.onDateSelected;
+        if (onDateSelected != null) {
+          onDateSelected(date);
         }
       },
       showMonth: widget.showMonth,
@@ -153,11 +152,11 @@ class _DatePickerState extends State<DatePicker> {
   }
 
   void _animateToSelected() {
-    final index = _dates.indexOf(selectedDate);
-    var offset = (widget.elementWidth +
-            widget.elementMargin.left +
-            widget.elementMargin.right) *
-        index;
+    final int index = _dates.indexOf(selectedDate);
+    final double leftMargin = widget.elementMargin?.left ?? 0.0;
+    final double rightMargin = widget.elementMargin?.right ?? 0.0;
+
+    var offset = (widget.elementWidth + leftMargin + rightMargin) * index;
 
     if (offset > _scrollController.position.maxScrollExtent) {
       offset = _scrollController.position.maxScrollExtent;
@@ -190,17 +189,14 @@ class _DatePickerState extends State<DatePicker> {
       lastDate: widget.lastDate,
       margin: widget.elementMargin,
       onDateSelected: (date) {
-        if (date == null) {
-          return;
-        }
-
         selectedDate = date;
         _animateToSelected();
 
         setState(() {});
 
-        if (widget.onDateSelected != null) {
-          widget.onDateSelected(date);
+        void Function(DateTime)? onDateSelected = widget.onDateSelected;
+        if (onDateSelected != null) {
+          onDateSelected(date);
         }
       },
       width: widget.elementWidth,
