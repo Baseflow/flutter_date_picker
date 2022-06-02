@@ -1,3 +1,7 @@
-## [0.0.1] - TODO: Add release date.
+## [0.0.2]
 
-* TODO: Describe initial release.
+* Migrates to support sound null safety.
+
+## [0.0.1]
+
+* Initial release.
