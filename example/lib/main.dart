@@ -51,7 +51,7 @@ class _DatePickerExampleState extends State<DatePickerExample> {
         backgroundColor: Colors.white,
         title: Text(widget.title),
       ),
-      backgroundColor: kBackgroundColor,
+      backgroundColor: kSurfaceColor,
       body: Column(
         children: [
           Padding(
@@ -119,8 +119,7 @@ const kAccentColorDarker = Color.fromRGBO(19, 30, 41, 1);
 const kOnAccentColor = Colors.white;
 
 const kSecondaryColor = Color.fromRGBO(224, 224, 224, 1);
-const kBackgroundColor = Color.fromRGBO(229, 236, 241, 1);
-const kSurfaceColor = Color.fromRGBO(255, 255, 255, 1);
+const kSurfaceColor = Color.fromRGBO(229, 236, 241, 1);
 const kBorderColor = Color.fromRGBO(212, 224, 219, 1);
 const kShadowColor = Color.fromRGBO(111, 129, 137, 0.2);
 
@@ -138,13 +137,13 @@ ThemeData getTheme(BuildContext context) {
   final colorScheme = _getColorScheme();
 
   final textTheme = theme.textTheme.copyWith(
-    headline6: theme.textTheme.headline6!.copyWith(
+    titleLarge: theme.textTheme.titleLarge!.copyWith(
       color: kDefaultTextColor,
     ),
-    bodyText2: theme.textTheme.bodyText2!.copyWith(
+    bodyMedium: theme.textTheme.bodyMedium!.copyWith(
       color: kDefaultTextColor,
     ),
-    button: theme.textTheme.bodyText2!.copyWith(
+    labelLarge: theme.textTheme.bodyMedium!.copyWith(
       fontWeight: FontWeight.bold,
       fontSize: 16,
     ),
@@ -153,7 +152,7 @@ ThemeData getTheme(BuildContext context) {
   return ThemeData(
     primaryColor: kPrimary,
     fontFamily: 'SF Pro Text',
-    scaffoldBackgroundColor: kBackgroundColor,
+    scaffoldBackgroundColor: kSurfaceColor,
     textTheme: textTheme,
     iconTheme: const IconThemeData.fallback().copyWith(
       color: kAccentColor,
@@ -182,8 +181,8 @@ ThemeData getTheme(BuildContext context) {
       actionsIconTheme: const IconThemeData(
         color: kDefaultTextColor,
       ),
-      toolbarTextStyle: textTheme.bodyText2,
-      titleTextStyle: textTheme.headline6,
+      toolbarTextStyle: textTheme.bodyMedium,
+      titleTextStyle: textTheme.titleLarge,
     ),
     bottomAppBarTheme: const BottomAppBarTheme(
       color: Colors.white,
@@ -218,12 +217,10 @@ ColorScheme _getColorScheme() {
     primary: kPrimary,
     secondary: kAccentColor,
     surface: kSurfaceColor,
-    background: kBackgroundColor,
     error: Colors.redAccent[700]!,
     onPrimary: Colors.white,
     onSecondary: Colors.white,
-    onSurface: kDefaultTextColor,
-    onBackground: kBackgroundColor,
+    onSurface: kAccentColor,
     onError: Colors.white,
     brightness: Brightness.light,
   );
